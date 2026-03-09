@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="soulMates — Discover your music DNA">
+  <section class="hero">
+    <img src="/icons/hero-logo.svg" alt="soulMates" class="hero-logo" />
+    <h1>Discover your<br /><span class="accent">music DNA</span></h1>
+    <p class="subtitle">
+      Swipe through tracks, reveal your musical personality, and find people who
+      truly share your taste.
+    </p>
+    <div class="cta-row">
+      <a href="#" class="btn btn-primary">App Store</a>
+      <a href="#" class="btn btn-outline">Google Play</a>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature">
+      <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#e7b10a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3" fill="#e7b10a" stroke="#e7b10a"/><circle cx="18" cy="16" r="3" fill="#e7b10a" stroke="#e7b10a"/></svg></div>
+      <h3>Swipe & Discover</h3>
+      <p>
+        Listen to curated tracks and swipe to build your musical profile. Every
+        choice shapes your unique music genome.
+      </p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🧬</div>
+      <h3>Music Genome</h3>
+      <p>
+        12 musical axes map your taste across energy, valence, complexity, and
+        more. See your personality through music.
+      </p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">💜</div>
+      <h3>Find Your Soulmates</h3>
+      <p>
+        Match with people whose musical aura aligns with yours. Chat, share
+        tracks, and discover music together.
+      </p>
+    </div>
+  </section>
+
+  <section class="screenshots" id="screenshots">
+    <h2>See it in action</h2>
+    <div class="screenshot-grid">
+      <!-- Add your screenshot images to /public/screenshots/ and reference them here -->
+      <!-- <img src="/screenshots/swipe.png" alt="Swipe screen" /> -->
+      <!-- <img src="/screenshots/profile.png" alt="Music profile" /> -->
+      <!-- <img src="/screenshots/chat.png" alt="Chat" /> -->
+      <p class="placeholder">Screenshots coming soon</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 80px 24px 64px;
+    text-align: center;
+    background: linear-gradient(135deg, #f4eee1 0%, #f8cba4 35%, #cdecf2 75%, #f4eee1 100%);
+    border-radius: 0 0 40px 40px;
+  }
+  .hero-logo {
+    width: 140px;
+    height: auto;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: 3rem;
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .accent {
+    color: var(--accent);
+  }
+  .subtitle {
+    margin-top: 16px;
+    font-size: 1.2rem;
+    color: var(--muted);
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta-row {
+    margin-top: 32px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: opacity 0.2s;
+  }
+  .btn:hover {
+    text-decoration: none;
+    opacity: 0.85;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: #fff;
+  }
+  .btn-outline {
+    border: 2px solid var(--accent);
+    color: var(--accent);
+  }
+
+  .features {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 32px;
+  }
+  .feature {
+    background: rgba(255, 255, 255, 0.88);
+    border-radius: 26px;
+    padding: 28px 24px;
+    border: 1px solid rgba(18, 20, 25, 0.07);
+  }
+  .feature-icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
+  .feature h3 {
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+  }
+  .feature p {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .screenshots {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+    text-align: center;
+  }
+  .screenshots h2 {
+    font-size: 1.8rem;
+    margin-bottom: 32px;
+  }
+  .screenshot-grid {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .screenshot-grid img {
+    border-radius: var(--radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-height: 500px;
+  }
+  .placeholder {
+    color: var(--muted);
+    font-style: italic;
+  }
+</style>

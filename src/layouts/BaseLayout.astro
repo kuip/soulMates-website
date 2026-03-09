@@ -1,0 +1,193 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = 'Discover your music DNA and find people who share your taste.',
+  ogImage = '/icons/og-image.png',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Primary Meta -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
+
+    <!-- JSON-LD structured data for AI agents -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'MobileApplication',
+        name: 'soulMates',
+        operatingSystem: 'iOS, Android',
+        applicationCategory: 'SocialNetworkingApplication',
+        description,
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD',
+        },
+        author: {
+          '@type': 'Organization',
+          name: 'Kuip Limited',
+          email: 'soulMates@mail.provable.dev',
+        },
+      })}
+    />
+
+    <style is:global>
+      :root {
+        --ink: #121419;
+        --paper: #f4eee1;
+        --bg: #f4eee1;
+        --accent: #e7612b;
+        --accent-light: #fde8df;
+        --aqua: #0fa3b1;
+        --gold: #e7b10a;
+        --muted: #666a73;
+        --radius: 12px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          sans-serif;
+        color: var(--ink);
+        background: var(--bg);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="nav-inner">
+        <a href="/" class="nav-brand">
+          <img src="/icons/brand.svg" alt="soulMates" class="nav-logo" />
+        </a>
+        <div class="nav-links">
+          <a href="/blog">Blog</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <p>&copy; {new Date().getFullYear()} Kuip Limited, Ireland. All rights reserved.</p>
+      <p>
+        <a href="/privacy">Privacy Policy</a> &middot;
+        <a href="/terms">Terms of Service</a> &middot;
+        <a href="mailto:soulMates@mail.provable.dev">Contact</a>
+      </p>
+    </footer>
+
+    <style>
+      .nav {
+        position: sticky;
+        top: 0;
+        background: rgba(244, 238, 225, 0.92);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        z-index: 100;
+      }
+      .nav-inner {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .nav-brand {
+        display: flex;
+        align-items: center;
+      }
+      .nav-brand:hover {
+        text-decoration: none;
+      }
+      .nav-logo {
+        height: 56px;
+        width: auto;
+      }
+      .nav-links {
+        display: flex;
+        gap: 24px;
+      }
+      .nav-links a {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .nav-links a:hover {
+        color: var(--ink);
+        text-decoration: none;
+      }
+
+      .footer {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 40px 24px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.85rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.06);
+      }
+      .footer p {
+        margin-bottom: 6px;
+      }
+      .footer a {
+        color: var(--muted);
+      }
+    </style>
+  </body>
+</html>
