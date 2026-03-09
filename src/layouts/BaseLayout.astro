@@ -40,25 +40,54 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
 
-    <!-- JSON-LD structured data for AI agents -->
+    <!-- JSON-LD structured data for search engines and AI agents -->
     <script
       type="application/ld+json"
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'MobileApplication',
         name: 'soulMates',
+        url: 'https://soulmates.provable.dev',
         operatingSystem: 'iOS, Android',
         applicationCategory: 'SocialNetworkingApplication',
         description,
+        featureList: [
+          'Music personality profiling across 12 musical axes',
+          'Big Five personality trait inference from music taste',
+          'MBTI prediction from music preferences',
+          'Compatibility matching based on musical aura similarity',
+          'Collaborative music listening sessions',
+          'Micro-genre discovery',
+          'QR code invite system',
+        ],
         offers: {
           '@type': 'Offer',
           price: '0',
-          priceCurrency: 'USD',
+          priceCurrency: 'EUR',
+          availability: 'https://schema.org/InStock',
         },
         author: {
           '@type': 'Organization',
           name: 'Kuip Limited',
+          url: 'https://soulmates.provable.dev',
           email: 'soulMates@mail.provable.dev',
+          address: {
+            '@type': 'PostalAddress',
+            addressCountry: 'IE',
+          },
+        },
+      })}
+    />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'soulMates',
+        url: 'https://soulmates.provable.dev',
+        publisher: {
+          '@type': 'Organization',
+          name: 'Kuip Limited',
         },
       })}
     />

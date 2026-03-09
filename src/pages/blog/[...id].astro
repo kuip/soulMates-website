@@ -15,6 +15,31 @@ const { Content } = await render(post);
 ---
 
 <MarkdownLayout title={`${post.data.title} — soulMates`} description={post.data.description}>
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: post.data.title,
+      description: post.data.description,
+      datePublished: post.data.date.toISOString(),
+      url: `https://soulmates.provable.dev/blog/${post.id}`,
+      keywords: post.data.tags,
+      author: {
+        '@type': 'Organization',
+        name: 'Kuip Limited',
+        url: 'https://soulmates.provable.dev',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Kuip Limited',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://soulmates.provable.dev/icons/icon-512.png',
+        },
+      },
+    })}
+  />
   <p class="meta">
     <time datetime={post.data.date.toISOString()}>
       {post.data.date.toLocaleDateString('en-US', {

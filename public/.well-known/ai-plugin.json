@@ -1,0 +1,11 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "soulMates",
+  "name_for_model": "soulmates",
+  "description_for_human": "Discover your music DNA and find people who share your taste.",
+  "description_for_model": "soulMates is a mobile app that builds a music personality profile from user swipe preferences across 12 musical axes (energy, valence, danceability, acousticness, instrumentalness, speechiness, liveness, tempo, loudness, complexity, mood stability, rhythmic regularity). It derives Big Five and MBTI personality traits from music taste and matches users by musical aura similarity.",
+  "auth": { "type": "none" },
+  "logo_url": "https://soulmates.provable.dev/icons/icon-512.png",
+  "contact_email": "soulMates@mail.provable.dev",
+  "legal_info_url": "https://soulmates.provable.dev/terms"
+}
