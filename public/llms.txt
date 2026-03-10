@@ -1,6 +1,6 @@
 # soulMates
 
-> Discover your music DNA and find people who share your taste.
+> Discover your music personality, build your music DNA together, and listen and react to music with friends and people who share your taste.
 
 soulMates is a mobile app (iOS & Android) that analyzes your music preferences to build a unique music personality profile. By swiping through curated tracks, the app maps your taste across 12 musical axes and derives personality traits including Big Five and MBTI dimensions.
 

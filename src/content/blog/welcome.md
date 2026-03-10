@@ -5,7 +5,7 @@ date: 2026-03-09
 tags: [announcement, music, personality]
 ---
 
-We're excited to introduce **soulMates** — a new way to discover who you are through music and find people who truly share your taste.
+We're excited to introduce **soulMates** — a new way to discover who you are through music, with your friends and find people who truly share your taste.
 
 ## How It Works
 
@@ -13,7 +13,7 @@ soulMates analyzes your music preferences across 12 musical axes to build a uniq
 
 ## Find Your People
 
-Once your music DNA takes shape, soulMates matches you with people whose musical aura aligns with yours. Chat with your matches, share tracks, and discover music together.
+Once your music DNA takes shape, soulMates matches you with people whose musical aura aligns with yours. Chat with your matches, share tracks, and discover music together. Invite your friends and listen to music together, in sync, and share emoji reactions.
 
 ## What Makes Us Different
 

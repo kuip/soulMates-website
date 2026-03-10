@@ -7,7 +7,7 @@ interface Props {
 
 const {
   title,
-  description = 'Discover your music DNA and find people who share your taste.',
+  description = 'Discover your music personality, build your music DNA together, and listen and react to music with your friends and people who share your taste.',
   ogImage = '/icons/og-image.png',
 } = Astro.props;
 
@@ -49,7 +49,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         name: 'soulMates',
         url: 'https://soulmates.provable.dev',
         operatingSystem: 'iOS, Android',
-        applicationCategory: 'SocialNetworkingApplication',
+        applicationCategory: 'MusicApplication',
         description,
         featureList: [
           'Music personality profiling across 12 musical axes',
