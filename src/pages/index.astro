@@ -45,14 +45,80 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <section class="screenshots" id="screenshots">
     <h2>See it in action</h2>
-    <div class="screenshot-grid">
-      <!-- Add your screenshot images to /public/screenshots/ and reference them here -->
-      <!-- <img src="/screenshots/swipe.png" alt="Swipe screen" /> -->
-      <!-- <img src="/screenshots/profile.png" alt="Music profile" /> -->
-      <!-- <img src="/screenshots/chat.png" alt="Chat" /> -->
-      <p class="placeholder">Screenshots coming soon</p>
+    <div class="carousel">
+      <button class="carousel-btn carousel-prev" aria-label="Previous" id="carouselPrev">&lsaquo;</button>
+      <div class="carousel-track" id="carouselTrack">
+        <img src="/screenshots/IMG_2948.PNG" alt="soulMates screenshot" loading="lazy" />
+        <img src="/screenshots/IMG_2949.PNG" alt="soulMates screenshot" loading="lazy" />
+        <img src="/screenshots/IMG_2951.PNG" alt="soulMates screenshot" loading="lazy" />
+        <img src="/screenshots/IMG_2952.PNG" alt="soulMates screenshot" loading="lazy" />
+        <img src="/screenshots/IMG_2953.PNG" alt="soulMates screenshot" loading="lazy" />
+        <img src="/screenshots/IMG_2955.PNG" alt="soulMates screenshot" loading="lazy" />
+        <img src="/screenshots/IMG_2956.PNG" alt="soulMates screenshot" loading="lazy" />
+        <img src="/screenshots/IMG_2960.PNG" alt="soulMates screenshot" loading="lazy" />
+        <img src="/screenshots/IMG_2961.PNG" alt="soulMates screenshot" loading="lazy" />
+        <img src="/screenshots/IMG_2962.PNG" alt="soulMates screenshot" loading="lazy" />
+        <img src="/screenshots/IMG_2963.PNG" alt="soulMates screenshot" loading="lazy" />
+      </div>
+      <button class="carousel-btn carousel-next" aria-label="Next" id="carouselNext">&rsaquo;</button>
     </div>
+    <div class="carousel-dots" id="carouselDots"></div>
   </section>
+
+  <script>
+    const track = document.getElementById('carouselTrack')!;
+    const prevBtn = document.getElementById('carouselPrev')!;
+    const nextBtn = document.getElementById('carouselNext')!;
+    const dotsContainer = document.getElementById('carouselDots')!;
+    const images = track.querySelectorAll('img');
+    let current = 0;
+
+    // Create dots
+    images.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', `Screenshot ${i + 1}`);
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    function goTo(index: number) {
+      current = Math.max(0, Math.min(index, images.length - 1));
+      const img = images[current] as HTMLElement;
+      track.scrollTo({ left: img.offsetLeft - track.offsetLeft - (track.clientWidth - img.clientWidth) / 2, behavior: 'smooth' });
+      updateDots();
+    }
+
+    function updateDots() {
+      dotsContainer.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === current);
+      });
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    // Update current on scroll
+    let scrollTimeout: ReturnType<typeof setTimeout>;
+    track.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        const center = track.scrollLeft + track.clientWidth / 2;
+        let closest = 0;
+        let minDist = Infinity;
+        images.forEach((img, i) => {
+          const el = img as HTMLElement;
+          const mid = el.offsetLeft - track.offsetLeft + el.clientWidth / 2;
+          const dist = Math.abs(center - mid);
+          if (dist < minDist) { minDist = dist; closest = i; }
+        });
+        current = closest;
+        updateDots();
+      }, 50);
+    });
+
+    // Touch/swipe support is handled natively by scroll
+  </script>
 </BaseLayout>
 
 <style>
@@ -142,28 +208,104 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .screenshots {
-    max-width: 960px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 0 24px 80px;
+    padding: 0 0 60px;
     text-align: center;
   }
   .screenshots h2 {
     font-size: 1.8rem;
     margin-bottom: 32px;
   }
-  .screenshot-grid {
+
+  .carousel {
+    position: relative;
     display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
+    align-items: center;
+    max-width: 960px;
+    margin: 0 auto;
   }
-  .screenshot-grid img {
-    border-radius: var(--radius);
+  .carousel-track {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 8px 24px;
+  }
+  .carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+  .carousel-track img {
+    flex: 0 0 auto;
+    height: 480px;
+    width: auto;
+    border-radius: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    max-height: 500px;
+    scroll-snap-align: center;
+    transition: transform 0.3s;
   }
-  .placeholder {
-    color: var(--muted);
-    font-style: italic;
+  .carousel-track img:hover {
+    transform: scale(1.02);
+  }
+
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    font-size: 1.5rem;
+    color: var(--ink);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .carousel-btn:hover {
+    background: #fff;
+  }
+  .carousel-prev {
+    left: 8px;
+  }
+  .carousel-next {
+    right: 8px;
+  }
+
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .carousel-dots :global(.carousel-dot) {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: var(--ink);
+    opacity: 0.2;
+    cursor: pointer;
+    padding: 0;
+    transition: opacity 0.2s;
+  }
+  .carousel-dots :global(.carousel-dot.active) {
+    opacity: 0.8;
+  }
+
+  @media (max-width: 640px) {
+    .carousel-btn {
+      display: none;
+    }
+    .carousel-track img {
+      height: 400px;
+    }
   }
 </style>
