@@ -5,6 +5,19 @@ import { getCollection } from 'astro:content';
 const posts = (await getCollection('blog'))
   .filter((p) => !p.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+function getExcerpt(body: string, maxLength = 300): string {
+  // Strip markdown formatting and get plain text
+  const plain = body
+    .replace(/^---[\s\S]*?---/, '') // frontmatter
+    .replace(/^#{1,6}\s+.*$/gm, '') // headings
+    .replace(/\|.*\|/g, '') // table rows
+    .replace(/[*_`~\[\]]/g, '') // inline formatting
+    .replace(/\(.*?\)/g, '') // links
+    .replace(/\n+/g, ' ') // newlines
+    .trim();
+  return plain.length > maxLength ? plain.slice(0, maxLength) + '...' : plain;
+}
 ---
 
 <BaseLayout title="Blog — soulMates" description="Articles about music, personality, and connection.">
@@ -23,6 +36,7 @@ const posts = (await getCollection('blog'))
           </time>
           <h2>{post.data.title}</h2>
           <p>{post.data.description}</p>
+          <p class="excerpt">{getExcerpt(post.body ?? '')}</p>
           {post.data.tags.length > 0 && (
             <div class="tags">
               {post.data.tags.map((tag: string) => (
@@ -75,6 +89,13 @@ const posts = (await getCollection('blog'))
   .post-card p {
     color: var(--muted);
     font-size: 0.95rem;
+  }
+  .post-card .excerpt {
+    margin-top: 8px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--ink);
+    opacity: 0.7;
   }
   .tags {
     margin-top: 10px;
